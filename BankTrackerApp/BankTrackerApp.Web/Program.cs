@@ -14,6 +14,11 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 builder.Services.AddMudServices();
 
+builder.Services.AddScoped(sp => new HttpClient
+{
+    BaseAddress = new Uri("https://localhost:7028/")
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

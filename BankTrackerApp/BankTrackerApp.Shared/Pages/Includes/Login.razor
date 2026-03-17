@@ -1,0 +1,64 @@
+﻿@page "/login"
+@rendermode InteractiveAuto
+@using BankTrackerShared.Shared.DTOs
+@using BankTrackerShared.Core.Modelos
+@using BankTrackerShared.Core.Tipos
+@inject HttpClient Http
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
+    <MudPaper Elevation="4" Class="pa-8" Style="border-radius: 20px;">
+        <MudStack Spacing="4">
+            <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Primary">BankTracker</MudText>
+            <MudText Typo="Typo.body2" Align="Align.Center">Introduce tus credenciales para continuar</MudText>
+
+            <MudTextField @bind-Value="login.DniCliente" Label="DNI / Usuario"
+                          Variant="Variant.Outlined" Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Person" />
+
+            <MudTextField @bind-Value="login.Password" Label="Contraseña"
+                          Variant="Variant.Outlined" InputType="InputType.Password"
+                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large"
+                       FullWidth="true" OnClick="hacerLogin" Class="mt-4">
+                Iniciar Sesión
+            </MudButton>
+        </MudStack>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private LoginRequest login = new();
+
+
+    private async Task hacerLogin()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("/api/cuentas/login", login);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var resultado = await response.Content.ReadFromJsonAsync<ApiResponse<CuentaResponse>>();
+
+                if(resultado != null && resultado.Success)
+                {
+                    await JS.InvokeVoidAsync("localStorage.setItem", "token", resultado.Data.Token);
+                    await JS.InvokeVoidAsync("localStorage.setItem", "usuarioNombre", resultado.Data.NombreTitular);
+
+                    Navigation.NavigateTo("/");
+                }
+            } 
+            else
+            {
+                await JS.InvokeVoidAsync("alert", "Error al iniciar sesión. Verifica tus credenciales.");
+            }
+        }
+        catch (Exception ex)
+        {
+            await JS.InvokeVoidAsync("alert", $"Ocurrió un error: {ex.Message}");
+        }
+    }
+}
