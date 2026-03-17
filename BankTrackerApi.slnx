@@ -4,4 +4,5 @@
   <Project Path="BankTrackerApp/BankTrackerApp.Web.Client/BankTrackerApp.Web.Client.csproj" Id="28977236-2e5e-4ba1-adf0-a3d0d151d8c8" />
   <Project Path="BankTrackerApp/BankTrackerApp.Web/BankTrackerApp.Web.csproj" Id="1acbd91f-eff8-4474-8242-d73deae70c3e" />
   <Project Path="BankTrackerApp/BankTrackerApp/BankTrackerApp.csproj" Id="762a63df-0cb7-4bed-89d3-0b11372fc1fa" />
+  <Project Path="BankTrackerShared/BankTrackerShared.csproj" Id="70d9ee7e-6678-4d77-afc7-cec4bc4ad2d0" />
 </Solution>
