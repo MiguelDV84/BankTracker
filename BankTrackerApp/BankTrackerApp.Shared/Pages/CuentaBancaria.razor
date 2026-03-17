@@ -1,0 +1,59 @@
+﻿@page "/"
+@using BankTrackerApp.Shared.Services
+@inject IFormFactor FormFactor
+
+<MudCarousel Class="mud-width-full" Style="height:300px;" ShowArrows="true" ShowBullets="true" AutoCycle="false" TData="object">
+    
+    @* ITEM 1: RESUMEN DE CUENTA Y ÚLTIMAS OPERACIONES *@
+    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
+        <div class="d-flex flex-column pa-6" style="height:100%">
+            
+            @* Parte Superior: Nombre y Saldo *@
+            <div class="mb-4">
+                <MudText Typo="Typo.h6">Cuenta Corriente Personal</MudText>
+                <MudText Typo="Typo.h3" Class="mud-text-white">1.200,00 €</MudText>
+            </div>
+
+            <MudDivider Class="mb-4" Style="background-color: rgba(255,255,255,0.2)" />
+
+            @* Parte Inferior: Mini Historial (3 últimas) *@
+            <MudText Typo="Typo.caption" Class="mb-2" Style="opacity: 0.8">ÚLTIMOS MOVIMIENTOS</MudText>
+            
+            <div class="d-flex flex-column gap-2">
+                <div class="d-flex justify-space-between">
+                    <MudText Typo="Typo.body2">Mercadona Supermercados</MudText>
+                    <MudText Typo="Typo.body2" Color="Color.Error">-45,20 €</MudText>
+                </div>
+                <div class="d-flex justify-space-between">
+                    <MudText Typo="Typo.body2">Nómina Mensual</MudText>
+                    <MudText Typo="Typo.body2" Style="color: #4CAF50">+1.850,00 €</MudText>
+                </div>
+                <div class="d-flex justify-space-between">
+                    <MudText Typo="Typo.body2">Suscripción Netflix</MudText>
+                    <MudText Typo="Typo.body2" Color="Color.Error">-12,99 €</MudText>
+                </div>
+            </div>
+        </div>
+    </MudCarouselItem>
+
+    @* ITEM 2 y 3 (Espacios reservados para lo que quieras añadir después) *@
+    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Secondary">
+        <div class="d-flex align-center justify-center" style="height:100%">
+            <MudText Typo="Typo.h5">Análisis de Gastos Mensuales</MudText>
+        </div>
+    </MudCarouselItem>
+
+</MudCarousel>
+
+
+
+@code {
+     
+    
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+   
+}
