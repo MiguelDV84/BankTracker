@@ -45,6 +45,9 @@
 
                 if(resultado != null && resultado.Success)
                 {
+                    await JS.InvokeVoidAsync("localStorage.setItem", "token", resultado.Data.Token);
+                    await JS.InvokeVoidAsync("localStorage.setItem", "usuarioNombre", resultado.Data.NombreTitular);
+
                     Navigation.NavigateTo("/");
                 }
             } 
