@@ -1,0 +1,55 @@
+﻿@page "/registrar"
+@layout LoginLayout
+@rendermode InteractiveAuto
+@using BankTrackerShared.Core.Modelos
+@using BankTrackerShared.Core.Tipos
+@using BankTrackerShared.Shared.DTOs
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@inject HttpClient Http
+
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
+    <MudPaper Elevation="4" Class="pa-8" Style="border-radius: 20px;">
+        <MudStack Spacing="4">
+            <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Primary">Crear Cuenta</MudText>
+            <MudText Typo="Typo.body2" Align="Align.Center">Completa tus datos para empezar a trackear tus finanzas</MudText>
+
+            <MudTextField @bind-Value="crearCuenta.NombreTitular" Label="Nombre Completo"
+                          Variant="Variant.Outlined" Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Badge" />
+
+            <MudTextField @bind-Value="crearCuenta.DniCliente" Label="DNI / NIE"
+                          Variant="Variant.Outlined" Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Fingerprint" />
+
+            <MudTextField @bind-Value="crearCuenta.NumeroCuenta" Label="Número de Cuenta (IBAN)"
+                          Variant="Variant.Outlined" Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.AccountBalanceWallet" />
+
+            <MudNumericField @bind-Value="crearCuenta.Saldo" Label="Saldo Inicial"
+                             Variant="Variant.Outlined" Adornment="Adornment.Start"
+                             AdornmentIcon="@Icons.Material.Filled.AttachMoney" HideSpinButtons="true" />
+
+            <MudTextField @bind-Value="crearCuenta.Password" Label="Contraseña"
+                          Variant="Variant.Outlined" InputType="InputType.Password"
+                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large"
+                       FullWidth="true" OnClick="CrearCuenta" Class="mt-4">
+                Registrarse
+            </MudButton>
+
+            <MudText Typo="Typo.caption" Align="Align.Center" Class="d-block mt-4">
+                ¿Ya tienes cuenta?
+                <MudLink Href="login"
+                         Color="Color.Primary"
+                         Underline="Underline.Always"
+                         Typo="Typo.caption"
+                         Style="font-weight: bold;">
+                    Inicia sesión
+                </MudLink>
+            </MudText>
+        </MudStack>
+    </MudPaper>
+</MudContainer>
+

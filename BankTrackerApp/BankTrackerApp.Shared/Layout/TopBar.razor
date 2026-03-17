@@ -1,6 +1,33 @@
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+
+
 <div class="top-row px-4">
 
     <div class="profile-container">
         <MudIconButton Icon="@Icons.Material.Filled.Person" aria-label="profile" />
     </div>
+
+    <MudMenuItem Icon="@Icons.Material.Filled.Logout" OnClick="CerrarSesion">
+        Cerrar Sesión
+    </MudMenuItem>
 </div>
+
+
+@code {
+
+    private async Task CerrarSesion()
+    {
+        // 1. Eliminamos los datos del almacenamiento local
+        await JS.InvokeVoidAsync("localStorage.removeItem", "token");
+        await JS.InvokeVoidAsync("localStorage.removeItem", "usuarioNombre");
+
+        // 2. Opcional: Si implementaste el AuthProvider que mencionamos antes,
+        // deberías llamar a un método para notificar que el usuario salió.
+        // await AuthProvider.NotifyLogout();
+
+        // 3. Redirigimos al Login inmediatamente
+        Navigation.NavigateTo("/login");
+    }
+}
