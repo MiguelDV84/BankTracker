@@ -1,6 +1,7 @@
 using BankTrackerApp.Shared.Services;
 using BankTrackerApp.Web.Components;
 using BankTrackerApp.Web.Services;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddRazorComponents()
 
 // Add device-specific services used by the BankTrackerApp.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 
