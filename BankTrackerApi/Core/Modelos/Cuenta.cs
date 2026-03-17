@@ -2,12 +2,13 @@
 {
     public class Cuenta
     {
-        private int Id { get; set; }
-        private string NumeroCuenta { get; set; }
-        private string NombreTitular { get; set; }
-        private decimal Saldo { get; set; }
-        private string PasswrodHash { get; set; }
-        private List<Movimientos> Movimientos { get; set; }
+        public int Id { get; set; }
+        public string NumeroCuenta { get; set; }
+        public string NombreTitular { get; set; }
+        public string DniCliente { get; set; }
+        public decimal Saldo { get; set; }
+        public string PasswordHash { get; set; }
+        public List<Movimientos> Movimientos { get; set; }
 
     }
 }

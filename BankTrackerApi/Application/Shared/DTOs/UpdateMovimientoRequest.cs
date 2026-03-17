@@ -1,8 +1,8 @@
-﻿using BankTrackerApi.Core.Tipos;
+using BankTrackerApi.Core.Tipos;
 
-namespace BankTrackerApi.Core.Modelos
+namespace BankTrackerApi.Application.Shared.DTOs
 {
-    public class Movimientos
+    public class UpdateMovimientoRequest
     {
         public int Id { get; set; }
         public int CuentaId { get; set; }
