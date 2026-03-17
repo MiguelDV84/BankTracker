@@ -1,7 +1,33 @@
-﻿<MudPaper style="z-index: 10" Width="15%" Height="100vh" Elevation="2">
-    <MudNavMenu Rounded="true" Margin="Margin.Dense" Color="Color.Primary" Class="pa-2">
-        <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Inicio</MudNavLink>
-        <MudNavLink Href="/estadistica" Icon="@Icons.Material.Filled.BarChart">Estadisticas</MudNavLink>
+﻿@namespace BankTrackerApp.Shared.Layout
+
+<style>
+    .transition-width {
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-x: hidden;
+    }
+</style>
+
+<MudPaper Style="@(_isExpanded ? "width: 15%;" : "width: 80px;")"
+          Class="d-flex flex-column z-10 transition-width"
+          Height="100vh"
+          Elevation="2">
+
+    <MudNavMenu Rounded="true" Margin="Margin.Dense" Color="Color.Primary" Class="pa-2 flex-grow-1 d-flex flex-column">
+
+        @foreach (var item in _menuItems)
+        {
+            <MudNavLink Href="@item.Link" Match="@item.Match" Icon="@item.Icon">
+                @(_isExpanded? item.Label: "")
+            </MudNavLink>
+        }
+
+        <div class="mt-auto">
+            <MudDivider Class="my-2" />
+            <MudNavLink OnClick="ToggleDrawer"
+                        Icon="@(_isExpanded ? Icons.Material.Filled.KeyboardDoubleArrowLeft : Icons.Material.Filled.KeyboardDoubleArrowRight)">
+                @(_isExpanded ? "Colapsar" : "")
+            </MudNavLink>
+        </div>
+
     </MudNavMenu>
 </MudPaper>
-
