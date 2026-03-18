@@ -15,14 +15,16 @@
 }
 else
 {
-    <MudTable Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" >
+    <MudTable Style="width:100%;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" RowsPerPage="@_rowsPerPage">
         <ToolBarContent>
             <MudText Typo="Typo.h6">Historial Bancario</MudText>
-            <MudSpacer />
-            <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            @if (_onSearcher)
+            {
+                <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            }
             <MudSpacer />
             <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Tertiary">
-                <MudIcon Icon="@Icons.Material.Filled.AddCircleOutline" Title="Crear" Size="Size.Small"/>
+                <MudIcon Icon="@Icons.Material.Filled.AddCircleOutline" Title="Crear" Size="Size.Small" />
                 Crear
             </MudButton>
         </ToolBarContent>
@@ -39,7 +41,10 @@ else
             <MudTd DataLabel="tipo_movimiento">@context.TipoMovimiento</MudTd>
         </RowTemplate>
         <PagerContent>
-            <MudTablePager />
+            @if (_onPagerContent)
+            {
+                <MudTablePager HideRowsPerPage />
+            }
         </PagerContent>
     </MudTable>
 }
