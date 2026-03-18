@@ -115,10 +115,15 @@ DELIMITER ;
 
 -- Volcando estructura para procedimiento BankTracker.sp_insert_movimiento
 DELIMITER //
-CREATE PROCEDURE `sp_insert_movimiento`(IN p_cantidad decimal(18, 2), IN p_concepto varchar(120),
-                                                         IN p_fecha datetime, IN p_tipo_movimiento tinyint, IN p_cuenta_id int)
+CREATE PROCEDURE `sp_insert_movimiento`(
+	IN `p_cantidad` decimal(18, 2),
+	IN `p_concepto` varchar(120),
+	IN `p_fecha` datetime,
+	IN `p_tipo_movimiento` tinyint,
+	IN `p_cuenta_id` int
+)
 BEGIN
-    INSERT INTO Movimientos (cantidad, concepto, fecha, tipo_movimiento, cuenta_id)
+    INSERT INTO Movimientos (cantidad, concepto, fecha, TipoMovimiento, cuentaId)
     VALUES (p_cantidad, p_concepto, p_fecha, p_tipo_movimiento, p_cuenta_id);
 END//
 DELIMITER ;
