@@ -1,4 +1,5 @@
-﻿using BankTrackerShared.Core.Tipos;
+﻿using BankTrackerApp.Shared.Components;
+using BankTrackerShared.Core.Tipos;
 using BankTrackerShared.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -21,6 +22,7 @@ namespace BankTrackerApp.Shared.Pages.Historico
         //
         private List<MovimientoResponse>? listadoMovimientos;
 
+        private string? mensajeError = null;
 
         //
         public class Tabla
@@ -63,6 +65,10 @@ namespace BankTrackerApp.Shared.Pages.Historico
         {
             try
             {
+                mensajeError = null; // Limpiamos errores anteriores
+
+                Elements = new List<Tabla>();
+
                 Http.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
@@ -71,28 +77,46 @@ namespace BankTrackerApp.Shared.Pages.Historico
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ApiResponse<List<MovimientoResponse>>>();
-
                     if (result != null && result.Success)
                     {
                         listadoMovimientos = result.Data;
-
-                        Elements = listadoMovimientos.Select(m => new Tabla
+                        Elements = result.Data.Select(m => new Tabla
                         {
                             Cantidad = m.Cantidad,
-                            Concepto = m.Concepto,
+                            Concepto = m.Concepto ?? "Sin concepto",
                             Fecha = m.Fecha,
                             TipoMovimiento = m.TipoMovimiento
-
-                        });
+                        }).ToList();
                     }
                 }
-
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    mensajeError = "No tienes permiso para ver esta sección. Tu sesión puede haber caducado.";
+                    isAuthorized = false; // Bloqueamos el acceso
+                }
+                else
+                {
+                    mensajeError = "Error al obtener los datos del servidor.";
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                await JS.InvokeVoidAsync("alert", $"Ocurrió un error: {ex.Message}");
+                mensajeError = "No se pudo establecer conexión con el servidor. Verifica tu internet.";
             }
+            StateHasChanged(); 
+        }
 
+        private async Task Reintentar()
+        {
+            var token = await JS.InvokeAsync<string>("localStorage.getItem", "token");
+            if (!string.IsNullOrEmpty(token))
+            {
+                await CargarDatosHistorial(token);
+            }
+            else
+            {
+                Navigation.NavigateTo("/login");
+            }
         }
 
         private bool FilterFunc1(Tabla tabla) => FilterFunc(tabla, searchString1);
@@ -120,6 +144,49 @@ namespace BankTrackerApp.Shared.Pages.Historico
                 return true;
 
             return false;
+        }
+
+        private async Task AbrirDialogo()
+        {
+            // 1. Configuramos opciones del diálogo (tamaño, botón cerrar, etc.)
+            var opciones = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+
+            // 2. Lanzamos el componente que creamos antes
+            var dialog = await DialogService.ShowAsync<DialogoCrearMovimiento>("Nuevo Registro", opciones);
+
+            // 3. Esperamos a que el usuario pulse "Guardar" o "Cancelar"
+            var result = await dialog.Result;
+
+            if (!result.Canceled && result.Data is MovimientoRequest nuevoMovimiento)
+            {
+                // 4. Si guardó, llamamos a la función que hace el POST a la API
+                await GuardarEnServidor(nuevoMovimiento);
+            }
+        }
+
+        private async Task GuardarEnServidor(MovimientoRequest request)
+        {
+
+            try
+            {
+                mensajeError = null;
+
+                var token = await JS.InvokeAsync<string>("localStorage.getItem", "token");
+                Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                var response = await Http.PostAsJsonAsync("api/movimientos", request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await JS.InvokeVoidAsync("alert", "¡Guardado con éxito!");
+                    await CargarDatosHistorial(token!); // Recargamos la tabla
+                }
+            }
+            catch (Exception)
+            {
+                mensajeError = "Error de conexión con el servidor.";
+                StateHasChanged();
+            }
         }
 
     }
