@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using BankTrackerApp.Shared.CardContent
+@using BankTrackerApp.Shared.Pages.Historico
 
 <MudContainer MaxWidth="MaxWidth.False" Class="pa-0">
     @if (_isLoading)
@@ -22,8 +23,8 @@
             </MudItem>
 
             <MudItem xs="12" sm="6">
-                <MudPaper Class="pa-6 d-flex align-center justify-center" Elevation="2" Style="height: 100%; min-height: 200px;">
-                    2
+                <MudPaper Class="d-flex align-center justify-center" Elevation="2" Style="height: 100%; min-height: 200px;">
+                    <Historico _onPagerContent="true" _onSearcher="false" _rowsPerPage="5" />
                 </MudPaper>
             </MudItem>
 
