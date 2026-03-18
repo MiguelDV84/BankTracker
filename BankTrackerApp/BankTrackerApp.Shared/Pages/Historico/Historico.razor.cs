@@ -71,6 +71,8 @@ namespace BankTrackerApp.Shared.Pages.Historico
             {
                 mensajeError = null; // Limpiamos errores anteriores
 
+                Elements = new List<Tabla>();
+
                 Http.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
@@ -82,10 +84,10 @@ namespace BankTrackerApp.Shared.Pages.Historico
                     if (result != null && result.Success)
                     {
                         listadoMovimientos = result.Data;
-                        Elements = listadoMovimientos.Select(m => new Tabla
+                        Elements = result.Data.Select(m => new Tabla
                         {
                             Cantidad = m.Cantidad,
-                            Concepto = m.Concepto,
+                            Concepto = m.Concepto ?? "Sin concepto",
                             Fecha = m.Fecha,
                             TipoMovimiento = m.TipoMovimiento
                         }).ToList();
@@ -147,9 +149,6 @@ namespace BankTrackerApp.Shared.Pages.Historico
 
             return false;
         }
-
-        private MovimientoRequest nuevoMovimiento = new();
-
 
         private async Task AbrirDialogo()
         {
