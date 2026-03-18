@@ -1,0 +1,41 @@
+﻿@page "/historico"
+@using System.Net.Http.Json
+@using BankTrackerShared.Core.Modelos
+@using BankTrackerShared.Core.Tipos
+@using BankTrackerShared.Shared.DTOs
+
+
+@if (!isAuthorized)
+{
+    @* Muestra esto mientras se comprueba el token o se cargan los datos *@
+    <div class="d-flex flex-column align-center justify-center mt-16">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        <MudText Typo="Typo.h6" Class="mt-4">Verificando autorización...</MudText>
+    </div>
+}
+else
+{
+    <MudTable Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" >
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Historial Bancario</MudText>
+            <MudSpacer />
+            <!--<MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>-->
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Cantidad</MudTh>
+            <MudTh>Concepto</MudTh>
+            <MudTh>Fecha</MudTh>
+            <MudTh>Tipo de Movimiento</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="cantidad">@context.Cantidad</MudTd>
+            <MudTd DataLabel="concepto">@context.Concepto</MudTd>
+            <MudTd DataLabel="fecha">@context.Fecha</MudTd>
+            <MudTd DataLabel="tipo_movimiento">@context.TipoMovimiento</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+}
+
