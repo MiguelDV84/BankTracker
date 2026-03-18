@@ -3,6 +3,7 @@ using BankTrackerShared.Core.Tipos;
 using BankTrackerShared.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
 using System.Net.Http.Json;
 
 namespace BankTrackerApp.Shared.Pages.Historico
@@ -12,6 +13,7 @@ namespace BankTrackerApp.Shared.Pages.Historico
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
         [Inject] private HttpClient Http { get; set; } = default!;
+        [Inject] private IDialogService DialogService { get; set; } = default!;
         [Parameter] public bool _onSearcher { get; set; } = true;
         [Parameter] public bool _onPagerContent { get; set; } = true;
         [Parameter] public int _rowsPerPage{ get; set; } = 10;
