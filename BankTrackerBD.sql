@@ -40,15 +40,15 @@ CREATE TABLE IF NOT EXISTS `Movimientos` (
   `cantidad` decimal(18,2) NOT NULL,
   `concepto` varchar(120) DEFAULT NULL,
   `fecha` datetime NOT NULL,
-  `tipo_movimiento` tinyint NOT NULL,
-  `cuenta_id` int NOT NULL DEFAULT (0),
+  `TipoMovimiento` tinyint NOT NULL,
+  `cuentaId` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `Movimientos_Cuenta_id_fk` (`cuenta_id`),
-  CONSTRAINT `Movimientos_Cuenta_id_fk` FOREIGN KEY (`cuenta_id`) REFERENCES `Cuenta` (`Id`)
+  KEY `Movimientos_Cuenta_id_fk` (`cuentaId`) USING BTREE,
+  CONSTRAINT `FK1_cuenta_movimiento` FOREIGN KEY (`cuentaId`) REFERENCES `Cuenta` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla BankTracker.Movimientos: ~0 rows (aproximadamente)
-REPLACE INTO `Movimientos` (`id`, `cantidad`, `concepto`, `fecha`, `tipo_movimiento`, `cuenta_id`) VALUES
+-- Volcando datos para la tabla BankTracker.Movimientos: ~5 rows (aproximadamente)
+REPLACE INTO `Movimientos` (`id`, `cantidad`, `concepto`, `fecha`, `TipoMovimiento`, `cuentaId`) VALUES
 	(3, 500.00, 'Ingreso', '2026-03-17 09:04:57', 0, 3),
 	(4, 500.00, 'Ingreso', '2026-03-17 09:05:50', 0, 3),
 	(5, -500.00, 'Gasto', '2026-03-17 09:06:25', 1, 3),
@@ -94,7 +94,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `sp_get_movimientos`()
 BEGIN
-    SELECT id, cantidad, concepto, fecha, tipo_movimiento, cuenta_id FROM Movimientos;
+    SELECT id, cantidad, concepto, fecha, TipoMovimiento, cuentaId FROM Movimientos;
 END//
 DELIMITER ;
 
