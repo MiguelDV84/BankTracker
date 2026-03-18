@@ -1,7 +1,6 @@
 ﻿using BankTrackerShared.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using MudBlazor;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
@@ -11,31 +10,45 @@ namespace BankTrackerApp.Shared.Pages
     {
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private HttpClient Http { get; set; } = default!;
-        private CuentaResponse _cuenta = new();
+
+        private CuentaResponse? _cuenta;
         private bool _isLoading = true;
         private string? _errorMessage;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender) // Solo queremos cargar los datos la primera vez
+            if (firstRender)
             {
-                try
-                {
-                    // Ahora sí podemos usar JavaScript de forma segura
-                    var token = await JS.InvokeAsync<string>("localStorage.getItem", "token");
+                await InicializarDatos();
+            }
+        }
 
-                    if (!string.IsNullOrEmpty(token))
-                    {
-                        Http.DefaultRequestHeaders.Authorization =
-                            new AuthenticationHeaderValue("Bearer", token);
+        private async Task InicializarDatos()
+        {
+            try
+            {
+                _isLoading = true;
+                var token = await JS.InvokeAsync<string>("localStorage.getItem", "token");
 
-                        await CargarDatosCuenta();
-                    }
-                }
-                catch (Exception ex)
+                if (!string.IsNullOrEmpty(token))
                 {
-                    Console.WriteLine($"Error: {ex.Message}");
+                    Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    await CargarDatosCuenta();
                 }
+                else
+                {
+                    _errorMessage = "Sesión no válida.";
+                }
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = "Error de conexión.";
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                _isLoading = false;
+                StateHasChanged();
             }
         }
 
@@ -45,7 +58,10 @@ namespace BankTrackerApp.Shared.Pages
             if (response is { Success: true })
             {
                 _cuenta = response.Data;
-                StateHasChanged();
+            }
+            else
+            {
+                _errorMessage = "No se encontró la información de la cuenta.";
             }
         }
     }

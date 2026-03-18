@@ -8,7 +8,6 @@ namespace BankTrackerApp.Shared.Layout
     {
         private bool _isExpanded = true;
 
-        // Declaramos la lista de items
         private List<MenuItem> _menuItems = new();
 
         protected override void OnInitialized()

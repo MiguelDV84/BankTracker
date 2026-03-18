@@ -1,22 +1,21 @@
 ﻿@page "/"
-@using BankTrackerApp.Shared.Services
-@inject IFormFactor FormFactor
+@using BankTrackerApp.Shared.CardContent
 
-<MudCarousel Class="mud-width-full" Style="height:300px;" ShowArrows="true" ShowBullets="true" AutoCycle="false" TData="object">
-    
-    @* ITEM 1: RESUMEN DE CUENTA Y ÚLTIMAS OPERACIONES *@
-    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
-        <div class="d-flex flex-column pa-6" style="height:100%">
-            
-            @* Parte Superior: Nombre y Saldo *@
-            <div class="mb-4">
-                <MudText Typo="Typo.h6">@_cuenta.NumeroCuenta</MudText>
-                <MudText Typo="Typo.h6">@_cuenta.NombreTitular</MudText>
-                <MudText Typo="Typo.h3" Class="mud-text-white">@_cuenta.Saldo €</MudText>
-            </div>
-
-            <MudDivider Class="mb-4" Style="background-color: rgba(255,255,255,0.2)" />
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-8">
+    @if (_isLoading)
+    {
+        <div class="d-flex justify-center">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
         </div>
-    </MudCarouselItem>
-
-</MudCarousel>
+    }
+    else if (_cuenta != null)
+    {
+        <CardContent Titulo="@_cuenta.NumeroCuenta" 
+                     Cuerpo="@($"{_cuenta.Saldo:N2} €")" 
+                     TextoBoton="Ver Movimientos" />
+    }
+    else
+    {
+        <MudAlert Severity="Severity.Error">@(_errorMessage ?? "No se pudieron cargar los datos")</MudAlert>
+    }
+</MudContainer>
