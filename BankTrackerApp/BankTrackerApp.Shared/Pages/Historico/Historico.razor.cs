@@ -16,6 +16,7 @@ namespace BankTrackerApp.Shared.Pages.Historico
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
         [Inject] private HttpClient Http { get; set; } = default!;
+        [Parameter] public bool _onSearcher { get; set; }
 
         //
         private bool isAuthorized = false;
