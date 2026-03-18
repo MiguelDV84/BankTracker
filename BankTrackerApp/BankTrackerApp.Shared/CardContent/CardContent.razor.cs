@@ -9,5 +9,6 @@ namespace BankTrackerApp.Shared.CardContent
         [Parameter] public string Titulo { get; set; } = "Título por defecto";
         [Parameter] public string Cuerpo { get; set; } = "Contenido por defecto...";
         [Parameter] public string TextoBoton { get; set; } = "Saber más";
+        [Parameter] public EventCallback OnClick { get; set; }
     }
 }

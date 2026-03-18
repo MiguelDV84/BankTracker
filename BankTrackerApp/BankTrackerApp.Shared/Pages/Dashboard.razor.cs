@@ -6,10 +6,11 @@ using System.Net.Http.Json;
 
 namespace BankTrackerApp.Shared.Pages
 {
-    public partial class CuentaBancaria : ComponentBase
+    public partial class Dashboard : ComponentBase
     {
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private HttpClient Http { get; set; } = default!;
+        [Inject] private NavigationManager Navigation { get; set; } = default!;
 
         private CuentaResponse? _cuenta;
         private bool _isLoading = true;
@@ -63,6 +64,11 @@ namespace BankTrackerApp.Shared.Pages
             {
                 _errorMessage = "No se encontró la información de la cuenta.";
             }
+        }
+
+        private void NavegarMovimientos()
+        {
+            Navigation.NavigateTo("/historico");
         }
     }
 }

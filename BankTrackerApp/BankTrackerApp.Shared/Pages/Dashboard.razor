@@ -1,0 +1,43 @@
+﻿@page "/"
+@using BankTrackerApp.Shared.CardContent
+
+<MudContainer MaxWidth="MaxWidth.False" Class="pa-0">
+    @if (_isLoading)
+    {
+        <div class="d-flex justify-center">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+        </div>
+    }
+    else if (_cuenta != null)
+    {
+        <MudGrid Spacing="4" Style="height: calc(100vh - var(--mud-appbar-height))">
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="d-flex flex-column" Elevation="2" Style="height: 100%;">
+                    <CardContent Titulo="@_cuenta.NumeroCuenta"
+                                 Cuerpo="@($"{_cuenta.Saldo:N2} €")"
+                                 TextoBoton="Ver Movimientos" 
+                                 OnClick="@NavegarMovimientos"
+                                 />
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="pa-6 d-flex align-center justify-center" Elevation="2" Style="height: 100%; min-height: 200px;">
+                    2
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="pa-6 d-flex align-center justify-center" Elevation="2" Style="height: 100%; min-height: 200px;">
+                    3
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="pa-6 d-flex align-center justify-center" Elevation="2" Style="height: 100%; min-height: 200px;">
+                    4
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    }
+</MudContainer>
