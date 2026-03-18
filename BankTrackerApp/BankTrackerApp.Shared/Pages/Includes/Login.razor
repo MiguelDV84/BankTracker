@@ -4,40 +4,83 @@
 @using BankTrackerShared.Shared.DTOs
 @using BankTrackerShared.Core.Modelos
 @using BankTrackerShared.Core.Tipos
-@inject HttpClient Http
-@inject IJSRuntime JS
-@inject NavigationManager Navigation
 
+<style>
+    .login-card {
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(10px);
+        box-shadow: -2px 4px 32px 2px rgb(0 0 0 / 38%) !important;
+    }
+
+    .login-button {
+        text-transform: none;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+</style>
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="mt-16">
-    <MudPaper Elevation="4" Class="pa-8" Style="border-radius: 20px;">
-        <MudStack Spacing="4">
-            <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Primary">BankTracker</MudText>
-            <MudText Typo="Typo.body2" Align="Align.Center">Introduce tus credenciales para continuar</MudText>
+    <MudPaper Elevation="5" Class="pa-10 login-card" Style="border-radius: 24px;">
+        <MudStack Spacing="6">
+            <MudStack Spacing="1" AlignItems="AlignItems.Center">
+                <MudText Typo="Typo.h4" Style="font-weight: 800; color: #1A237E;">BankTracker</MudText>
+                <MudText Typo="Typo.body2" Class="mud-text-secondary">Bienvenido de nuevo</MudText>
+            </MudStack>
 
-            <MudTextField @bind-Value="login.DniCliente" Label="DNI / Usuario"
-                          Variant="Variant.Outlined" Adornment="Adornment.Start"
-                          AdornmentIcon="@Icons.Material.Filled.Person" />
+            <MudStack Spacing="3">
+                <MudTextField @bind-Value="login.DniCliente"
+                              T="string"
+                              Label="DNI o Usuario"
+                              Required
+                              Variant="Variant.Filled"
+                              DisableUnderLine="true"
+                              Margin="Margin.Dense"
+                              Style="border-radius: 12px; background-color: #F5F7FA;"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.TwoTone.Person"
+                              AdornmentColor="Color.Primary" />
 
-            <MudTextField @bind-Value="login.Password" Label="Contraseña"
-                          Variant="Variant.Outlined" InputType="InputType.Password"
-                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+                <MudTextField @bind-Value="login.Password"
+                              T="string"
+                              Label="Contraseña"
+                              Required
+                              Variant="Variant.Filled"
+                              DisableUnderLine="true"
+                              Margin="Margin.Dense"
+                              Style="border-radius: 12px; background-color: #F5F7FA;"
+                              InputType="InputType.Password"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.TwoTone.Lock"
+                              AdornmentColor="Color.Primary" />
+            </MudStack>
 
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large"
-                       FullWidth="true" OnClick="hacerLogin" Class="mt-4">
-                Iniciar Sesión
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Size="Size.Large"
+                       FullWidth="true"
+                       OnClick="hacerLogin"
+                       Class="login-button py-3 mt-2"
+                       Style="border-radius: 12px;">
+                Entrar
             </MudButton>
-        </MudStack>
-        <MudText Typo="Typo.caption" Align="Align.Center" Class="d-block mt-4">
-            ¿No tienes una cuenta?
-            <MudLink Href="registrar"
-                     Color="Color.Primary"
-                     Underline="Underline.Always"
-                     Typo="Typo.caption"
-                     Style="font-weight: bold;">
-                Registrarse
-            </MudLink>
-        </MudText>
-    </MudPaper>
 
+            <MudDivider Class="my-2" />
+
+            <MudText Typo="Typo.body2" Align="Align.Center" Class="mud-text-secondary">
+                ¿Nuevo aquí?
+                <MudLink Href="registrar"
+                         Color="Color.Surface"
+                         Underline="Underline.None"
+                         Style="font-weight: 700;">
+                    Crea una cuenta
+                </MudLink>
+            </MudText>
+        </MudStack>
+    </MudPaper>
 </MudContainer>
