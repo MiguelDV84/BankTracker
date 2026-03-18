@@ -37,7 +37,10 @@ namespace BankTrackerApi.Application.Services.Movimiento
 
             var movimientoCreado = await _movimientoRepository.CreateMovimientoAsync(nuevoMovimiento);
 
-            cuenta.Saldo+= request.Cantidad;
+            cuenta.Saldo = request.TipoMovimiento == TipoMovimiento.Ingreso ?
+                    cuenta.Saldo + request.Cantidad :
+                    cuenta.Saldo - request.Cantidad;
+
             await _cuentaRepository.UpdateCuentaAsync(cuenta);
 
             return new MovimientoResponse
