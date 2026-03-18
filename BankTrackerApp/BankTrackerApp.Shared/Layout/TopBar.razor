@@ -1,19 +1,13 @@
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
 
-
-
-<div class="top-row px-4">
-
-    <div class="profile-container">
-        <MudIconButton Icon="@Icons.Material.Filled.Person" aria-label="profile" />
-    </div>
-
+<MudAppBar Style="background-color: #ffffff; z-index: 5" Fixed="false" Dense Elevation=4>
+    <MudSpacer />
+    <MudIconButton Icon="@Icons.Material.Filled.Person" aria-label="profile" />
     <MudMenuItem Icon="@Icons.Material.Filled.Logout" OnClick="CerrarSesion">
         Cerrar Sesión
     </MudMenuItem>
-</div>
-
+</MudAppBar>
 
 @code {
 
@@ -31,3 +25,4 @@
         Navigation.NavigateTo("/login");
     }
 }
+
