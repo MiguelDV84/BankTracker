@@ -1,4 +1,5 @@
 ﻿using BankTrackerShared.Shared.DTOs;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,11 @@ namespace BankTrackerApp.Shared.Pages.Includes
     public partial class Registro
     {
         private CuentaRequest crearCuenta = new();
+
+        [Inject] private IJSRuntime JS { get; set; } = default!;
+        [Inject] private NavigationManager Navigation { get; set; } = default!;
+        [Inject] private HttpClient Http { get; set; } = default!;
+
 
         private async Task CrearCuenta()
         {

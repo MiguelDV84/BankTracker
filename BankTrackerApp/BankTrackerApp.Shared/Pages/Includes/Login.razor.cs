@@ -1,18 +1,20 @@
 ﻿using BankTrackerShared.Shared.DTOs;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankTrackerApp.Shared.Pages.Includes
 {
     public partial class Login
     {
+        [Inject] private HttpClient Http { get; set; } = default!;
+        [Inject] private IJSRuntime JS { get; set; } = default!;
+        [Inject] private NavigationManager Navigation { get; set; } = default!;
         private LoginRequest login = new();
 
+        [Inject] private IJSRuntime JS { get; set; } = default!;
+        [Inject] private NavigationManager Navigation { get; set; } = default!;
+        [Inject] private HttpClient Http { get; set; } = default!;
 
         private async Task hacerLogin()
         {
