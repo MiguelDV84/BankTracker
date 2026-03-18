@@ -16,6 +16,10 @@ namespace BankTrackerApi.Presentation.Endpoints
             group.MapPost("/login", Login)
                 .WithName("LoginCuenta");
 
+            group.MapGet("/me", GetCuenta)
+                .WithName("GetCuenta")
+                .RequireAuthorization();
+
             group.MapGet("/", GetAllCuentas)
                 .WithName("GetAllCuentas")
                 .RequireAuthorization();
@@ -63,6 +67,24 @@ namespace BankTrackerApi.Presentation.Endpoints
                 {
                     Success = true,
                     Message = "Sesión iniciada exitosamente",
+                    Data = result
+                });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Results.Unauthorized();
+            }
+        }
+
+        private static async Task<IResult> GetCuenta(ICuentaService service)
+        {
+            try
+            {
+                var result = await service.GetCuentaAsync();
+                return Results.Ok(new ApiResponse<object>
+                {
+                    Success = true,
+                    Message = "Cuenta obtenida exitosamente",
                     Data = result
                 });
             }

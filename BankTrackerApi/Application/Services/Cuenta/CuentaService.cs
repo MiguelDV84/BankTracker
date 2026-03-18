@@ -1,6 +1,7 @@
 using BankTrackerApi.Application.Shared.DTOs;
 using BankTrackerApi.Infrastructure.Repositories;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,11 +12,14 @@ namespace BankTrackerApi.Application.Services.Cuenta
     {
         private readonly ICuentaRepository _cuentaRepository;
         private readonly IConfiguration _config;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CuentaService(ICuentaRepository cuentaRepository, IConfiguration config)
+
+        public CuentaService(ICuentaRepository cuentaRepository, IConfiguration config, IHttpContextAccessor httpContextAccessor)
         {
             _cuentaRepository = cuentaRepository;
             _config = config;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<CuentaResponse> RegisterAsync(CuentaRequest request)
@@ -48,6 +52,27 @@ namespace BankTrackerApi.Application.Services.Cuenta
                 Saldo = cuentaCreada.Saldo
             };
         }
+
+        public async Task<CuentaResponse> GetCuentaAsync()
+        {
+            var dniCliente = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ??
+                 throw new UnauthorizedAccessException("No se ha encontrado el numero de cuenta en el token.");
+           
+            var cuenta = await _cuentaRepository.GetCuentaByDniClienteAsync(dniCliente) ??
+                throw new KeyNotFoundException("No se ha encontra cuenta para el dni proporcionado.");
+      
+            var response = new CuentaResponse
+            {
+                Id = cuenta.Id,
+                DniCliente = cuenta.DniCliente,
+                NumeroCuenta = cuenta.NumeroCuenta,
+                NombreTitular = cuenta.NombreTitular,
+                Saldo = cuenta.Saldo
+            };
+
+            return response;
+        }
+
 
         public async Task<CuentaResponse> LoginAsync(LoginRequest request)
         {
@@ -84,6 +109,7 @@ namespace BankTrackerApi.Application.Services.Cuenta
                 Saldo = c.Saldo
             });
         }
+
 
         public async Task<CuentaResponse> UpdateCuentaAsync(UpdateCuentaRequest request)
         {
@@ -149,6 +175,8 @@ namespace BankTrackerApi.Application.Services.Cuenta
                 Expiration = expiration
             };
         }
+
+    
     }
 }
 
