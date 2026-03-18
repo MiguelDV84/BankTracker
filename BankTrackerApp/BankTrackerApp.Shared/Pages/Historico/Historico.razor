@@ -15,11 +15,16 @@
 }
 else
 {
-    <MudTable Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" >
+    <MudTable Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" >
         <ToolBarContent>
             <MudText Typo="Typo.h6">Historial Bancario</MudText>
             <MudSpacer />
-            <!--<MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>-->
+            <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            <MudSpacer />
+            <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Tertiary">
+                <MudIcon Icon="@Icons.Material.Filled.AddCircleOutline" Title="Crear" Size="Size.Small"/>
+                Crear
+            </MudButton>
         </ToolBarContent>
         <HeaderContent>
             <MudTh>Cantidad</MudTh>

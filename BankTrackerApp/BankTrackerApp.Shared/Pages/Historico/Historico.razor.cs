@@ -40,7 +40,7 @@ namespace BankTrackerApp.Shared.Pages.Historico
         private bool hover = true;
         private bool striped = false;
         private bool bordered = false;
-
+        private string searchString1 = "";
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -78,11 +78,6 @@ namespace BankTrackerApp.Shared.Pages.Historico
                     {
                         listadoMovimientos = result.Data;
 
-                        foreach (var m in listadoMovimientos)
-                        {
-                            Console.WriteLine($"Concepto: {m.Concepto} - Tipo: {m.TipoMovimiento}");
-                        }
-
                         Elements = listadoMovimientos.Select(m => new Tabla
                         {
                             Cantidad = m.Cantidad,
@@ -101,5 +96,33 @@ namespace BankTrackerApp.Shared.Pages.Historico
             }
 
         }
+
+        private bool FilterFunc1(Tabla tabla) => FilterFunc(tabla, searchString1);
+
+        private bool FilterFunc(Tabla tabla, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+
+            // 1. Buscar por Concepto
+            if (tabla.Concepto.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            // 2. Buscar por Cantidad
+            if ($"{tabla.Cantidad}".Contains(searchString))
+                return true;
+
+            // 3. Buscar por Fecha (formato día/mes/año)
+            if (tabla.Fecha.ToString("dd/MM/yyyy").Contains(searchString))
+                return true;
+
+            // 4. Buscar por Tipo de Movimiento (Ingreso/Gasto)
+            // Esto permite que si el usuario escribe "Gasto", aparezcan los gastos
+            if (tabla.TipoMovimiento.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            return false;
+        }
+
     }
 }
