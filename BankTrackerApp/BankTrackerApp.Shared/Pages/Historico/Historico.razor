@@ -4,8 +4,19 @@
 @using BankTrackerShared.Core.Tipos
 @using BankTrackerShared.Shared.DTOs
 
-
-@if (!isAuthorized)
+@if (!string.IsNullOrEmpty(mensajeError))
+{
+    @* Si hay un error, mostramos SOLO el mensaje de error y un botón para reintentar *@
+    <div class="d-flex flex-column align-center justify-center mt-16">
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="my-4">
+            @mensajeError
+        </MudAlert>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Reintentar">
+            Reintentar conexión
+        </MudButton>
+    </div>
+}
+else if (!isAuthorized)
 {
     @* Muestra esto mientras se comprueba el token o se cargan los datos *@
     <div class="d-flex flex-column align-center justify-center mt-16">
@@ -21,8 +32,8 @@ else
             <MudSpacer />
             <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             <MudSpacer />
-            <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Tertiary">
-                <MudIcon Icon="@Icons.Material.Filled.AddCircleOutline" Title="Crear" Size="Size.Small"/>
+            <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Tertiary" @onclick="AbrirDialogo">
+                <MudIcon Icon="@Icons.Material.Filled.AddCircleOutline" Title="Crear" Size="Size.Small" />
                 Crear
             </MudButton>
         </ToolBarContent>
@@ -43,4 +54,3 @@ else
         </PagerContent>
     </MudTable>
 }
-

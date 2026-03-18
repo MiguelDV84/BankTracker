@@ -1,0 +1,32 @@
+﻿@using MudBlazor
+@using BankTrackerShared.Shared.DTOs
+@using BankTrackerShared.Core.Tipos
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+            Nuevo Movimiento
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudStack Spacing="4">
+            <MudTextField @bind-Value="model.Concepto" Label="Concepto" Variant="Variant.Outlined" Margin="Margin.Dense" 
+                          Required="true" RequiredError="¡El concepto es necesario!" />
+            
+            <MudNumericField @bind-Value="model.Cantidad" Label="Cantidad" Variant="Variant.Outlined"
+                             Margin="Margin.Dense" Adornment="Adornment.End" AdornmentText="€" HideSpinButtons="true" 
+                             Min="0.01M" Required="true" RequiredError="La cantidad no puede ser 0" />
+
+            <MudSelect T="TipoMovimiento" Label="Tipo de Movimiento" @bind-Value="model.TipoMovimiento"
+                       Variant="Variant.Outlined" Margin="Margin.Dense">
+                <MudSelectItem Value="TipoMovimiento.Ingreso">Ingreso</MudSelectItem>
+                <MudSelectItem Value="TipoMovimiento.Gasto">Gasto</MudSelectItem>
+            </MudSelect>
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancelar">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Guardar">Guardar Movimiento</MudButton>
+    </DialogActions>
+</MudDialog>
