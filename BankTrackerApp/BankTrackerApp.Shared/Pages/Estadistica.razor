@@ -1,46 +1,30 @@
 ﻿@page "/estadistica"
 
-<MudPaper Class="pa-4">
-    @* Añadimos T="double" para solucionar el error de inferencia *@
-    <MudChart T="double"
-              ChartType="ChartType.Bar"
-              ChartSeries="@_series"
-              @bind-SelectedIndex="_index"
-              XAxisLabels="@_xAxisLabels"
-              ChartOptions="@_axisChartOptions"
-              Width="100%"
-              Height="@($"{_height}px")" />
-</MudPaper>
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Análisis de Gastos e Ingresos</MudText>
 
-<MudGrid Class="mt-4">
-    <MudItem xs="12" md="6">
-        <MudText Typo="Typo.body1" Class="py-3">
-            Seleccionado: @(_index < 0 ? "Ninguno" : _series[_index].Name)
-        </MudText>
-    </MudItem>
-    <MudItem xs="12" md="6">
-        <MudSlider @bind-Value="_height" Min="150" Max="500" Step="50">
-            Altura del gráfico: @_height px
-        </MudSlider>
-    </MudItem>
-</MudGrid>
+    <MudPaper Class="pa-4">
+        <MudChart ChartType="ChartType.Bar"
+                  ChartSeries="@_series"
+                  @bind-SelectedIndex="_index"
+                  ChartLabels="@_xAxisLabels"
+                  ChartOptions="_axisChartOptions"
+                  Width="100%"
+                  Height="@($"{_height}px")"
+                  MatchBoundsToSize="@_matchBoundsToSize">
+        </MudChart>
+    </MudPaper>
 
-@code {
-    private int _index = -1;
-    private int _height = 350;
-    
-    // Eliminamos las propiedades que daban error (XAxisLabelRotation y YAxisTicks)
-    // porque en esta versión se manejan de forma distinta o han sido omitidas de la clase base
-    private ChartOptions _axisChartOptions = new ChartOptions();
-
-    // Especificamos <double> en ChartSeries para corregir los errores de tipo genérico
-    private List<ChartSeries<double>> _series = new List<ChartSeries<double>>()
-    {
-        new ChartSeries<double>() { Name = "Estados Unidos", Data = new double[] { 40, 20, 25, 27, 46, 60, 48, 80, 15 } },
-        new ChartSeries<double>() { Name = "Alemania", Data = new double[] { 19, 24, 35, 13, 28, 15, 13, 16, 31 } },
-        new ChartSeries<double>() { Name = "Suecia", Data = new double[] { 8, 6, 11, 13, 4, 16, 10, 16, 18 } },
-    };
-
-    private string[] _xAxisLabels = { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep" };
-
-}
+    <MudGrid Class="mt-2">
+        <MudItem xs="6">
+            <MudText Typo="Typo.body1" Class="py-3">Selected: @(_index < 0 ? "None" : _series[_index].Name)</MudText>
+        </MudItem>
+        <MudItem md="6" xs="12">
+            <MudCheckBox @bind-Value="_matchBoundsToSize" Color="Color.Primary" Label="MatchBoundsToSize"></MudCheckBox>
+        </MudItem>
+        <MudItem md="6" xs="12">
+            <MudSlider @bind-Value="_height" Min="150" Max="500" Step="50">@($"Chart Height: {_height}px")</MudSlider>
+        </MudItem>
+       
+    </MudGrid>
+</MudContainer>
