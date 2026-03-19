@@ -16,9 +16,10 @@
                 <MudPaper Class="d-flex flex-column" Elevation="2" Style="height: 100%;">
                     <CardContent Titulo="@_cuenta.NumeroCuenta"
                                  Cuerpo="@($"{_cuenta.Saldo:N2} €")"
-                                 TextoBoton="Ver Movimientos" 
-                                 OnClick="@NavegarMovimientos"
-                                 />
+                                 TextoBoton="Ver Movimientos"
+                                 OnClick="@NavegarMovimientos">
+                        <Estadistica />
+                    </CardContent>
                 </MudPaper>
             </MudItem>
 
