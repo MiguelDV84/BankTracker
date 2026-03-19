@@ -1,0 +1,18 @@
+﻿@using BankTrackerApp.Shared.CardContent
+@using BankTrackerApp.Shared.Pages
+
+<CardContent Titulo="@(_isLoading ? "" : _cuenta?.NumeroCuenta)"
+             Cuerpo="@(_isLoading ? "" : $"{_cuenta?.Saldo:N2} €")"
+             TextoBoton="Ver Movimientos"
+             OnClick="@NavegarMovimientos">
+    @if (_isLoading)
+    {
+        <div class="d-flex justify-center align-center flex-grow-1" style="min-height: 120px;">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        </div>
+    }
+    else if (_cuenta != null)
+    {
+        <Estadistica />
+    }
+</CardContent>

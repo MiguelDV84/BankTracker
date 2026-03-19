@@ -1,20 +1,37 @@
-﻿using BankTrackerShared.Shared.DTOs;
+﻿using BankTrackerApp.Shared.Services;
+using BankTrackerShared.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-namespace BankTrackerApp.Shared.Pages
+namespace BankTrackerApp.Shared.Components.Balance
 {
-    public partial class Dashboard : ComponentBase
+    public partial class Balance : ComponentBase
     {
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private HttpClient Http { get; set; } = default!;
         [Inject] private NavigationManager Navigation { get; set; } = default!;
+        [Inject] private IBalanceStateService StateService { get; set; } = default!;
+
 
         private CuentaResponse? _cuenta;
         private bool _isLoading = true;
         private string? _errorMessage;
+
+        protected override void OnInitialized()
+        {
+            StateService.OnChange += HandleBalanceChanged;
+        }
+
+        private async void HandleBalanceChanged()
+        {
+            await InvokeAsync(async () =>
+            {
+                await CargarDatosCuenta();
+                StateHasChanged();
+            });
+        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -70,5 +87,7 @@ namespace BankTrackerApp.Shared.Pages
         {
             Navigation.NavigateTo("/historico");
         }
+
+        public void Dispose() => StateService.OnChange -= HandleBalanceChanged;
     }
 }

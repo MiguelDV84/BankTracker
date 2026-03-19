@@ -13,6 +13,7 @@ builder.Services.AddRazorComponents()
 // Add device-specific services used by the BankTrackerApp.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 builder.Services.AddMudServices();
+builder.Services.AddScoped<IBalanceStateService, BalanceStateService>();
 
 builder.Services.AddScoped(sp => new HttpClient
 {
