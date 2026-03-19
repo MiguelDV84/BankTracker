@@ -24,7 +24,7 @@ else if (!isAuthorized)
 }
 else
 {
-    <MudTable Style="width:100%;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" RowsPerPage="@_rowsPerPage" RowStyleFunc="@RowStyleFunc">
+    <MudTable Style="width:100%;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" RowsPerPage="@_rowsPerPage" RowStyleFunc="@RowStyleFunc" Elevation="0">
         <ToolBarContent>
             <MudText Typo="Typo.h6">Historial Bancario</MudText>
             @if (_onSearcher)
