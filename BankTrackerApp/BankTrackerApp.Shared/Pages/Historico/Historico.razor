@@ -24,7 +24,7 @@ else if (!isAuthorized)
 }
 else
 {
-    <MudTable Style="width:100%; height: 100%;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" RowsPerPage="@_rowsPerPage">
+    <MudTable Style="width:100%;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" RowsPerPage="@_rowsPerPage" RowStyleFunc="@RowStyleFunc">
         <ToolBarContent>
             <MudText Typo="Typo.h6">Historial Bancario</MudText>
             @if (_onSearcher)
@@ -43,7 +43,7 @@ else
             <MudTh>Fecha</MudTh>
             <MudTh>Tipo de Movimiento</MudTh>
         </HeaderContent>
-        <RowTemplate>
+        <RowTemplate >
             <MudTd DataLabel="cantidad">@context.Cantidad</MudTd>
             <MudTd DataLabel="concepto">@context.Concepto</MudTd>
             <MudTd DataLabel="fecha">@context.Fecha</MudTd>
