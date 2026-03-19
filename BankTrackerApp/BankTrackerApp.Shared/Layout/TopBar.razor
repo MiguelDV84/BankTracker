@@ -1,5 +1,18 @@
-<MudAppBar Style="background-color: #ffffff; z-index: 5" Fixed="false" Dense Elevation=4>
-    <MudSpacer />
-    <MudIconButton Icon="@Icons.Material.Filled.Person" aria-label="profile" />
-    <MudIconButton Icon="@Icons.Material.Filled.Logout" aria-label="cerrar-sesion" OnClick="CerrarSesion" />
+<MudAppBar  Style="z-index: 5" Class="bg-white d-flex flex-row justify-end" Fixed="false" Dense Elevation="4">
+    <MudMenu Label="Perfil"
+             StartIcon="@Icons.Material.Filled.Person"
+             EndIcon="@Icons.Material.Filled.KeyboardArrowDown"
+             AnchorOrigin="Origin.BottomRight"
+             TransformOrigin="Origin.TopRight"
+             ActivationEvent="MouseEvent.LeftClick">
+
+        <MudMenuItem Icon="@Icons.Material.Filled.Logout"
+                     Label="Cerrar Sesión"
+                     OnClick="CerrarSesion" />
+    </MudMenu>
 </MudAppBar>
+
+@code 
+{
+    [Parameter] public string NombrePerfil { get; set; } = "";
+}
