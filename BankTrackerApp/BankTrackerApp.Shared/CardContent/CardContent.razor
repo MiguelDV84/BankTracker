@@ -1,4 +1,4 @@
-<MudCard Outlined="false" Class="rounded-lg pa-4"  Elevation="0" Style="height: 100%;">
+<MudCard Outlined="false" Class="rounded-lg pa-4" Elevation="0" Style="height: 100%;">
     <MudCardContent>
         <MudText Typo="Typo.caption" Color="Color.Secondary" Class="text-uppercase">
             @Titulo
@@ -6,7 +6,9 @@
         <MudText Typo="Typo.h4" Class="mud-text-primary font-weight-bold">
             @Cuerpo
         </MudText>
-        @ChildContent
+        <div class="d-flex flex-column justify-center flex-grow-1">
+            @ChildContent
+        </div>
     </MudCardContent>
     <MudCardActions>
         <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@OnClick">

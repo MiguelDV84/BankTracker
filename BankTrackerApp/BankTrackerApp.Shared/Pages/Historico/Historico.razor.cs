@@ -1,4 +1,5 @@
 ﻿using BankTrackerApp.Shared.Components;
+using BankTrackerApp.Shared.Services;
 using BankTrackerShared.Core.Tipos;
 using BankTrackerShared.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
@@ -17,6 +18,7 @@ namespace BankTrackerApp.Shared.Pages.Historico
         [Parameter] public bool _onSearcher { get; set; } = true;
         [Parameter] public bool _onPagerContent { get; set; } = true;
         [Parameter] public int _rowsPerPage{ get; set; } = 10;
+        [Inject] private IBalanceStateService StateService { get; set; } = default!;
 
         //
         private bool isAuthorized = false;
@@ -81,8 +83,8 @@ namespace BankTrackerApp.Shared.Pages.Historico
                     var result = await response.Content.ReadFromJsonAsync<ApiResponse<List<MovimientoResponse>>>();
                     if (result != null && result.Success)
                     {
-                        listadoMovimientos = result.Data;
-                        Elements = result.Data.Select(m => new Tabla
+                        listadoMovimientos = result.Data.OrderByDescending(m => m.Fecha).ToList();
+                        Elements = listadoMovimientos.Select(m => new Tabla
                         {
                             Cantidad = m.Cantidad,
                             Concepto = m.Concepto ?? "Sin concepto",
@@ -182,6 +184,7 @@ namespace BankTrackerApp.Shared.Pages.Historico
                 {
                     await JS.InvokeVoidAsync("alert", "¡Guardado con éxito!");
                     await CargarDatosHistorial(token!); // Recargamos la tabla
+                    StateService.NotifyChange();
                 }
             }
             catch (Exception)
