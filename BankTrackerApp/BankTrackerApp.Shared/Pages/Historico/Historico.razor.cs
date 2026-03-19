@@ -193,14 +193,10 @@ namespace BankTrackerApp.Shared.Pages.Historico
 
         private string RowStyleFunc(Tabla element, int index)
         {
-            // Supongamos que TipoMovimiento es un enum o string
             if (element.TipoMovimiento.Equals(TipoMovimiento.Gasto))
-                return "background-color: #ffebee; color: #b71c1c;"; // Rojo claro
+                return "background-color: #ffebee; color: #b71c1c;"; 
 
-            if (element.TipoMovimiento.Equals(TipoMovimiento.Ingreso))
-                return "background-color: #e8f5e9; color: #1b5e20;"; // Verde claro
-
-            return ""; // Estilo por defecto
+            return "background-color: #e8f5e9; color: #1b5e20;"; 
         }
 
     }
