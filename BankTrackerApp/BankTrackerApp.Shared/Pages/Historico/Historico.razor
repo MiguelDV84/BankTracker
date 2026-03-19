@@ -6,7 +6,6 @@
 
 @if (!string.IsNullOrEmpty(mensajeError))
 {
-    @* Si hay un error, mostramos SOLO el mensaje de error y un botón para reintentar *@
     <div class="d-flex flex-column align-center justify-center mt-16">
         <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="my-4">
             @mensajeError
@@ -18,7 +17,6 @@
 }
 else if (!isAuthorized)
 {
-    @* Muestra esto mientras se comprueba el token o se cargan los datos *@
     <div class="d-flex flex-column align-center justify-center mt-16">
         <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
         <MudText Typo="Typo.h6" Class="mt-4">Verificando autorización...</MudText>
@@ -26,7 +24,7 @@ else if (!isAuthorized)
 }
 else
 {
-    <MudTable Style="width:100%;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" RowsPerPage="@_rowsPerPage">
+    <MudTable Style="width:100%;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Tabla, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1" RowsPerPage="@_rowsPerPage" RowStyleFunc="@RowStyleFunc">
         <ToolBarContent>
             <MudText Typo="Typo.h6">Historial Bancario</MudText>
             @if (_onSearcher)
@@ -45,7 +43,7 @@ else
             <MudTh>Fecha</MudTh>
             <MudTh>Tipo de Movimiento</MudTh>
         </HeaderContent>
-        <RowTemplate>
+        <RowTemplate >
             <MudTd DataLabel="cantidad">@context.Cantidad</MudTd>
             <MudTd DataLabel="concepto">@context.Concepto</MudTd>
             <MudTd DataLabel="fecha">@context.Fecha</MudTd>
