@@ -21,7 +21,7 @@ namespace BankTrackerApp.Shared.Pages
 
         private int _index = -1;
         private int _height = 350;
-        private bool _matchBoundsToSize = false;
+        private bool _matchBoundsToSize = true;
         private string[] _xAxisLabels = { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
         private List<ChartSeries<double>> _series = new();
 

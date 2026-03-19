@@ -1,9 +1,9 @@
 ﻿@page "/estadistica"
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+<MudContainer MaxWidth="MaxWidth.False" Gutters="false">
     <MudText Typo="Typo.h4" Class="mb-4">Análisis de Gastos e Ingresos</MudText>
 
-    <MudPaper Class="pa-4">
+    <MudPaper Class="pa-4" Elevation="0">
         <MudChart ChartType="ChartType.Bar"
                   ChartSeries="@_series"
                   @bind-SelectedIndex="_index"
@@ -14,17 +14,4 @@
                   MatchBoundsToSize="@_matchBoundsToSize">
         </MudChart>
     </MudPaper>
-
-    <MudGrid Class="mt-2">
-        <MudItem xs="6">
-            <MudText Typo="Typo.body1" Class="py-3">Selected: @(_index < 0 ? "None" : _series[_index].Name)</MudText>
-        </MudItem>
-        <MudItem md="6" xs="12">
-            <MudCheckBox @bind-Value="_matchBoundsToSize" Color="Color.Primary" Label="MatchBoundsToSize"></MudCheckBox>
-        </MudItem>
-        <MudItem md="6" xs="12">
-            <MudSlider @bind-Value="_height" Min="150" Max="500" Step="50">@($"Chart Height: {_height}px")</MudSlider>
-        </MudItem>
-       
-    </MudGrid>
 </MudContainer>
