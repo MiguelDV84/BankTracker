@@ -1,5 +1,5 @@
-﻿using BankTrackerApp.Shared.Components;
-using BankTrackerApp.Shared.Services;
+﻿using BankTracker.SharedUI.Components;
+using BankTracker.SharedUI.Services;
 using BankTrackerShared.Core.Tipos;
 using BankTrackerShared.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 using MudBlazor;
 using System.Net.Http.Json;
 
-namespace BankTrackerApp.Shared.Pages.Historico
+namespace BankTracker.SharedUI.Pages.Historico
 {
     public partial class Historico
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankTrackerApp.Shared.Services
+namespace BankTracker.SharedUI.Services
 {
     public interface IBalanceStateService
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankTrackerApp.Shared.Components
+namespace BankTracker.SharedUI.Components
 {
     public partial class DialogoCrearMovimiento
     {

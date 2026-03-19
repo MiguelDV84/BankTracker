@@ -1,5 +1,5 @@
-﻿@using BankTrackerApp.Shared.CardContent
-@using BankTrackerApp.Shared.Pages
+﻿@using BankTracker.SharedUI.CardContent
+@using BankTracker.SharedUI.Pages
 
 <CardContent Titulo="@(_isLoading ? "" : _cuenta?.NumeroCuenta)"
              Cuerpo="@(_isLoading ? "" : $"{_cuenta?.Saldo:N2} €")"

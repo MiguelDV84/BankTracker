@@ -1,6 +1,6 @@
-using BankTrackerApp.Shared.Services;
+using BankTracker.SharedUI.Services;
 
-namespace BankTrackerApp.Services
+namespace BankTracker.SharedUI.Services
 {
     public class FormFactor : IFormFactor
     {

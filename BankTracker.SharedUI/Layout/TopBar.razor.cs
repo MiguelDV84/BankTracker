@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace BankTrackerApp.Shared.Layout
+namespace BankTracker.SharedUI.Layout
 {
     public partial class TopBar : ComponentBase
     {

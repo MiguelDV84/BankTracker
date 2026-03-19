@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BankTrackerApp"
-             xmlns:shared="clr-namespace:BankTrackerApp.Shared;assembly=BankTrackerApp.Shared"
+             xmlns:shared="clr-namespace:BankTracker.SharedUI;assembly=BankTracker.SharedUI"
              x:Class="BankTrackerApp.MainPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 

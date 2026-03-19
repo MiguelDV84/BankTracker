@@ -1,4 +1,4 @@
-using BankTrackerApp.Shared.Services;
+using BankTracker.SharedUI.Services;
 using BankTrackerApp.Web.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;

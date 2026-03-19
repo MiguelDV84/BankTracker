@@ -1,11 +1,11 @@
-﻿using BankTrackerApp.Shared.Services;
+﻿using BankTracker.SharedUI.Services;
 using BankTrackerShared.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-namespace BankTrackerApp.Shared.Components.Balance
+namespace BankTracker.SharedUI.Components.Balance
 {
     public partial class Balance : ComponentBase
     {

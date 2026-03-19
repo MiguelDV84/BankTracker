@@ -8,7 +8,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankTrackerApp.Shared.Pages.Includes
+namespace BankTracker.SharedUI.Pages.Includes
 {
     public partial class Registro
     {

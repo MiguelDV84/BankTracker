@@ -11,7 +11,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankTrackerApp.Shared.Pages
+namespace BankTracker.SharedUI.Pages
 {
     public partial class Estadistica
     {

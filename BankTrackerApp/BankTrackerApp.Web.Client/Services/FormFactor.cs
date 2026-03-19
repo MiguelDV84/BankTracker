@@ -1,4 +1,4 @@
-using BankTrackerApp.Shared.Services;
+using BankTracker.SharedUI.Services;
 
 namespace BankTrackerApp.Web.Client.Services
 {

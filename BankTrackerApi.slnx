@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="BankTracker.SharedUI/BankTracker.SharedUI.csproj" Id="fc4fc91d-8d18-4bde-bfd8-20f18b2f247f" />
   <Project Path="BankTrackerApi/BankTrackerApi.csproj" />
   <Project Path="BankTrackerApp/BankTrackerApp.Shared/BankTrackerApp.Shared.csproj" Id="b604442a-feac-48d7-aba0-a52db0cd4514" />
   <Project Path="BankTrackerApp/BankTrackerApp.Web.Client/BankTrackerApp.Web.Client.csproj" Id="28977236-2e5e-4ba1-adf0-a3d0d151d8c8" />

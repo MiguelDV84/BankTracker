@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Routing;
 using MudBlazor;
 
-namespace BankTrackerApp.Shared.Layout
+namespace BankTracker.SharedUI.Layout
 {
     public partial class NavMenu : ComponentBase
     {

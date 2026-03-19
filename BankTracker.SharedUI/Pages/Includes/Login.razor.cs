@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Net.Http.Json;
 
-namespace BankTrackerApp.Shared.Pages.Includes
+namespace BankTracker.SharedUI.Pages.Includes
 {
     public partial class Login
     {

@@ -1,4 +1,4 @@
-using BankTrackerApp.Shared.Services;
+using BankTracker.SharedUI.Services;
 using BankTrackerApp.Web.Components;
 using BankTrackerApp.Web.Services;
 using MudBlazor.Services;
@@ -44,7 +44,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(
-        typeof(BankTrackerApp.Shared._Imports).Assembly,
-        typeof(BankTrackerApp.Web.Client._Imports).Assembly);
+        typeof(BankTracker.SharedUI.Pages.Dashboard).Assembly,
+        typeof(BankTrackerApp.Web.Client._Imports).Assembly
+        );
 
 app.Run();

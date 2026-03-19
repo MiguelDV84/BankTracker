@@ -1,4 +1,4 @@
-namespace BankTrackerApp.Shared.Services
+namespace BankTracker.SharedUI.Services
 {
     public interface IFormFactor
     {

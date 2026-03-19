@@ -1,5 +1,4 @@
-﻿using BankTrackerApp.Services;
-using BankTrackerApp.Shared.Services;
+﻿using BankTracker.SharedUI.Services;
 using Microsoft.Extensions.Logging;
 
 namespace BankTrackerApp
