@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BankTrackerApp.Shared.CardContent
+namespace BankTrackerApp.Shared.Components.CardContent
 {
     public partial class CardContent : ComponentBase
     {
